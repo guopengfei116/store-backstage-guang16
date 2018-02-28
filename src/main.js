@@ -12,6 +12,8 @@ import 'normalize.css'
 import axios from 'axios'  // 不是vue插件, 导入之后只能在当前模块使用
 import api, { domain } from './js/api.js' 
 
+import './less/index.less'
+
 Vue.use(ElementUI)
 
 // 配置默认域名, 这样请求的时候就不用在url里每次手动加域名了
