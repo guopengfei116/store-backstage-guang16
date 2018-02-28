@@ -1,11 +1,20 @@
 <template>
-    <div>
-        <!-- 公共头部 -->
-        <app-header></app-header>
-        <!-- 公共左侧 -->
-        <app-aside></app-aside>
-        <!-- 变化的后台管理子页面 -->
-        <router-view></router-view>
+    <div class="admin">
+        <el-container>
+
+            <!-- 公共头部 -->
+            <el-header>Header</el-header>
+
+            <el-container class="admin_content">
+                <!-- 公共左侧 -->
+                <el-aside width="200px">Aside</el-aside>
+                <!-- 变化的后台管理子页面 -->
+                <el-main>
+                    <router-view></router-view>
+                </el-main>
+            </el-container>
+
+        </el-container>
     </div>
 </template>
 
@@ -22,6 +31,28 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+    .admin {
+        height: 100%;
+        color: #333;
 
+        .el-header {
+            line-height: 60px;
+        }
+
+        .el-container {
+            height: 100%;
+        }
+
+        // &在less中是对上级选择器的引用, 书写方便
+        &_content {
+            background-color: red;
+        }
+
+        .el-aside {
+            background-color: yellow;
+        }
+    }
+    
+    
 </style>

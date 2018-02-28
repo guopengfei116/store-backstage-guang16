@@ -63,7 +63,13 @@
                 // post请求的第二个参数是发送的数据, 这里直接把data里的表单对象传过去
                 this.$http.post(this.$api.login, this.ruleForm2).then((res) => {
                     if(res.data.status == 0) {
-                        this.$alert('登陆成功');
+                        // 第一个参数是文本内部, 第二个标题, 第三个是个配置对象
+                        this.$alert('登陆成功', '提示', {
+                            callback: () => {
+                                // 使用了路由插件之后, 组件实例就拥有了该对象, 对象有一个push方法, 可以进行路由跳转
+                                this.$router.push({ name: 'admin' });
+                            }
+                        });
                     }else {
                         this.$alert(res.data.message);
                     }
