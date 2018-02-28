@@ -21,6 +21,11 @@
                 nian: true
             }
         },
+
+        // 生命周期函数, vue会自动调用
+        created() {
+            this.$http.get(this.$api.logout).then(() => console.log('退出登陆'))
+        }
     }
 </script>
 
