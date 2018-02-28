@@ -66,6 +66,9 @@
                         // 第一个参数是文本内部, 第二个标题, 第三个是个配置对象
                         this.$alert('登陆成功', '提示', {
                             callback: () => {
+                                // 保存用户姓名
+                                localStorage.setItem('uname', res.data.message.uname);
+
                                 // 使用了路由插件之后, 组件实例就拥有了该对象, 对象有一个push方法, 可以进行路由跳转
                                 this.$router.push({ name: 'admin' });
                             }

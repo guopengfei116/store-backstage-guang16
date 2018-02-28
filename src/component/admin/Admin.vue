@@ -3,11 +3,16 @@
         <el-container>
 
             <!-- 公共头部 -->
-            <el-header>Header</el-header>
+            <el-header>
+                <app-header></app-header>
+            </el-header>
 
             <el-container class="admin_content">
                 <!-- 公共左侧 -->
-                <el-aside width="200px">Aside</el-aside>
+                <el-aside width="200px">
+                    <app-aside></app-aside>
+                </el-aside>
+                
                 <!-- 变化的后台管理子页面 -->
                 <el-main>
                     <router-view></router-view>
