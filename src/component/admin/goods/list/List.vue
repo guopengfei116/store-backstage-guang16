@@ -1,6 +1,6 @@
 <template>
     <div>
-        购物车
+        商品列表
     </div>
 </template>
 

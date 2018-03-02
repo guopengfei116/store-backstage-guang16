@@ -55,7 +55,7 @@
         }
 
         .el-aside {
-            background-color: yellow;
+            background-color: #545c64;
         }
     }
     
