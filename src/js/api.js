@@ -1,5 +1,6 @@
 // 导出域名
-export const domain = 'http://157.122.54.189:9095';
+// export const domain = 'http://157.122.54.189:9095'; // 线上的
+export const domain = 'http://localhost:8899'; // 本地的
 
 // 默认导出整个接口配置
 export default {
