@@ -33,17 +33,17 @@
                     { 
                         title: '商品管理', 
                         chidren: [ 
-                            { title: '内容管理', path: '/admin/goods' }, 
-                            { title: '类别管理', path: '/admin/category' }, 
-                            { title: '评论管理', path: '/admin/comment' } 
+                            { title: '内容管理', path: '/admin/goods/list' }, 
+                            { title: '类别管理', path: '/admin/goods/category' }, 
+                            { title: '评论管理', path: '/admin/goods/comment' } 
                         ]
                     },
                     { 
                         title: '订单管理', 
                         chidren: [ 
-                            { title: '内容管理1', path: '/admin/a' }, 
-                            { title: '类别管理2', path: '/admin/b' }, 
-                            { title: '评论管理3', path: '/admin/c' } 
+                            { title: '内容管理', path: '/admin/a' }, 
+                            { title: '类别管理', path: '/admin/b' }, 
+                            { title: '评论管理', path: '/admin/c' } 
                         ]
                     }
                 ]
