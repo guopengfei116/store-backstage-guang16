@@ -10,7 +10,7 @@
         <!-- 按钮组, 带搜索框 -->
         <section class="list_btns">
             <el-button plain size="mini" icon="el-icon-plus">新增</el-button>
-            <el-button plain size="mini" icon="el-icon-check">全选</el-button>
+            <el-button plain size="mini" icon="el-icon-check" @click="all">全选</el-button>
             <el-button plain size="mini" icon="el-icon-close" @click="del">删除</el-button>
 
             <div class="list_btns_right">
@@ -31,7 +31,18 @@
             <!-- 里面的template用来自定义表格中的内容与数据, 相比较prop属性的方式, 更加灵活, 可以对数据进行标签包裹 -->
             <el-table-column label="标题">
                 <template slot-scope="scope">
-                    <router-link style="color: #666;" :to="{ name: 'goodsDetail' }">{{ scope.row.title }}</router-link>
+
+                    <!-- 在a标签上嵌套tooltip标签, 就可以添加提示信息 -->
+                    <el-tooltip class="item" effect="dark" content="Right Center 提示文字" placement="right">
+                        <router-link style="color: #666;" :to="{ path: `/admin/goods/detail/${scope.row.id}` }">{{ scope.row.title }}</router-link>
+                        
+                        <!-- 通过带有slot的标签, 来自定义提示框里的子元素 -->
+                        <div slot="content">
+                            <img style="width: 200px;" :src="scope.row.imgurl" alt="商品图片">
+                        </div>
+
+                    </el-tooltip>
+
                 </template>
             </el-table-column>
 
@@ -47,12 +58,21 @@
 
             <el-table-column label="属性" width="120" show-overflow-tooltip>
                 <!-- 注意template要加slot-scope属性 -->
-                <template slot-scope="scope">里面是三个图标</template>
+                <template slot-scope="scope">
+                    <!-- 轮播图: is_slide -->
+                    <span :class="['el-icon-picture-outline', scope.row.is_slide == 1? 'active': '']"></span>
+
+                    <!-- 指定: is_top -->
+                    <span :class="['el-icon-upload2', scope.row.is_top == 1? 'active': '']"></span>
+
+                    <!-- 推荐: is_hot -->
+                    <span :class="['el-icon-star-off', scope.row.is_hot == 1? 'active': '']"></span>
+                </template>
             </el-table-column>
 
             <el-table-column label="操作" width="120" show-overflow-tooltip>
                 <template slot-scope="scope">
-                    <router-link style="color: #666;" :to="{ name: 'goodsDetail' }">修改</router-link>
+                    <router-link style="color: #666;" :to="{ path: `/admin/goods/detail/${scope.row.id}` }">修改</router-link>
                 </template>
             </el-table-column>
         </el-table>
@@ -137,6 +157,11 @@
                     }
                 })
             },
+
+            // 全选按钮
+            all() {
+                document.querySelector('.el-checkbox__original').click();
+            },
             
             toggleSelection(rows) {
                 if (rows) {
@@ -173,6 +198,12 @@
                 float: right;
                 width: 200px;
             }
+        }
+
+        // 添加icon点亮的样式
+        [class^=el-icon].active {
+            color: #000;
+            font-weight: bold;
         }
     }
 </style>
