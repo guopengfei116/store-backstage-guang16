@@ -11,7 +11,7 @@
         <section class="list_btns">
             <el-button plain size="mini" icon="el-icon-plus">新增</el-button>
             <el-button plain size="mini" icon="el-icon-check">全选</el-button>
-            <el-button plain size="mini" icon="el-icon-close">删除</el-button>
+            <el-button plain size="mini" icon="el-icon-close" @click="del">删除</el-button>
 
             <div class="list_btns_right">
                 <el-input placeholder="请输入商品名称" prefix-icon="el-icon-search" 
@@ -22,7 +22,7 @@
 
         <!-- 大表格 -->
         <!-- data属性用来配置表格数据  -->
-        <el-table ref="multipleTable" :data="tableData3" style="width: 100%">
+        <el-table @selection-change="change" ref="multipleTable" :data="tableData3" style="width: 100%">
             
             <!-- type为selection, 即多选框 -->
             <el-table-column type="selection" width="55"></el-table-column>
@@ -73,6 +73,9 @@
                     searchvalue: ''
                 },
 
+                // 被选中的商品数据
+                selectedGoodsList: [],
+
                 // 表格数据
                 tableData3: [
                     {
@@ -116,6 +119,22 @@
                         this.tableData3 = res.data.message;  // 把请求回来的数据覆盖原data数量, 表格就会自动刷新
                     }
                 });
+            },
+
+            // 监听多选框状态的变化, 参数可以拿到被选的商品数据
+            change(selection) {
+                this.selectedGoodsList = selection;
+            },
+
+            // 删除按钮
+            del() {
+                let delIDS = this.selectedGoodsList.map(v => v.id); // 提取所有被选商品的id
+                this.$http.get(this.$api.gsDel + delIDS).then((res) => {
+                    // 删除成功后重新获取数据进行渲染
+                    if(res.data.status == 0) {
+                        this.getGoodsData();
+                    }
+                })
             },
             
             toggleSelection(rows) {
