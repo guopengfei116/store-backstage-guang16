@@ -95,7 +95,7 @@
                 // 搜索
                 apiQuery: {
                     pageIndex: 1,
-                    pageSize: 2,
+                    pageSize: 2, 
                     searchvalue: '',
                     total: 0
                 },
