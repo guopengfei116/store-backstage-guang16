@@ -43,6 +43,7 @@
 
         .el-header {
             line-height: 60px;
+            background-color: #B3C0D1;
         }
 
         .el-container {
@@ -51,11 +52,11 @@
 
         // &在less中是对上级选择器的引用, 书写方便
         &_content {
-            background-color: red;
+            background-color: #E9EEF3;
         }
 
         .el-aside {
-            background-color: #545c64;
+            background-color: #D3DCE6;
         }
     }
     

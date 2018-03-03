@@ -1,7 +1,7 @@
 <template>
     <div>
-        <el-menu class="el-menu-vertical-demo" background-color="#545c64"
-            text-color="#fff" active-text-color="#ffd04b">
+        <el-menu class="el-menu-vertical-demo" background-color="#D3DCE6"
+            text-color="#000" active-text-color="#ffd04b">
 
             <!-- 预留一个一级菜单, 将来通过v-for动态生成多组一级菜单 -->
             <!-- 这里的index用来给当前菜单起个名字, 以区分 -->
