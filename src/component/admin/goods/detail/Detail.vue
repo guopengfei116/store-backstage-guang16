@@ -43,11 +43,22 @@
             </el-form-item>
 
             <el-form-item label="上传封面">
-                <el-input v-model="form.a">form.imgList</el-input>
+
+                <!-- action用来设置上传接口, list-type用来设置文件列表样式 -->
+                <!-- file-list用来设置文件列表的数据, 我们每上传成功一个文件, 就要给这个列表数据push上传后的信息, 然后列表就会展示出来 -->
+                <el-upload class="upload-demo" action="http://localhost:8899/admin/article/uploadimg"
+                    list-type="picture" :file-list="form.imgList" :on-success="uploadImg">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                </el-upload>
+
             </el-form-item>
 
             <el-form-item label="上传附件">
-                <el-input v-model="form.b">form.fileList</el-input>
+                <!-- 我们要监听文件上传成功的事件, 事件触发时要拿到后端接口返回的数据, 把它保存到data的from里, 将来保存修改的时候使用 -->
+                <el-upload class="upload-demo" action="http://localhost:8899/admin/article/uploadfile"
+                    :file-list="form.fileList" :on-success="uploadFile">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                </el-upload>
             </el-form-item>
 
             <el-form-item label="商品货号">
@@ -127,9 +138,26 @@
                 });
             },
 
+            // 上传封面 => 咱们的后端接口, 只能接收一张封面
+            uploadImg(data) {
+                // this.form.imgList = [];
+                // this.form.fileList.push(data); // 把接口返回的数据保存起来, 供将来保存使用
+
+                this.form.imgList = [data];
+            },
+
+            // 上传附件
+            uploadFile(data) {
+                this.form.fileList.push(data); // 把接口返回的数据保存起来, 供将来保存使用
+            },
+
             // 保存按钮
             onSubmit() {
-                
+                this.$http.post(this.$api.gsEdit + this.id, this.form).then(res => {    
+                    if(res.data.status == 0) {
+                        this.$alert('数据修改成功');
+                    }
+                });
             }
         },
 
