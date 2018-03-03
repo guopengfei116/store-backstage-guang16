@@ -21,8 +21,14 @@
 
             <el-form-item label="所属类别">
                 <el-select v-model="form.category_id" placeholder="请选择">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option v-for="item in category" :key="item.category_id" :label="item.title" :value="item.category_id">
+                        <!-- option里面可以加标签覆盖label文本, 但是label属性还得必须要, 不然会报错 -->
+                        <span>
+                            <!-- 子级分类才有这个图标 -->
+                            <span v-if="item.class_layer != 1">|-</span> 
+                            <span>{{ item.title }}</span>
+                        </span>
+                    </el-option>
                 </el-select>
             </el-form-item>
 
@@ -65,7 +71,7 @@
             </el-form-item>
 
             <el-form-item label="详细内容">
-                <div v-html="form.content"></div>
+                <quillEditor v-model="form.content"></quillEditor>
             </el-form-item>
 
             <el-form-item>
@@ -78,11 +84,20 @@
 </template>
 
 <script>
+    import 'quill/dist/quill.core.css'
+    import 'quill/dist/quill.snow.css'
+    import 'quill/dist/quill.bubble.css'
+
+    import { quillEditor } from 'vue-quill-editor'
+
     export default {
         data() {
             return {
                 // 表单数据
                 form: {},
+
+                // 分类列表数据
+                category: [],
 
                 // 页面一上来要从url里面拿到被编辑的商品ID
                 id: this.$route.params.id
@@ -96,6 +111,18 @@
                 this.$http.get(this.$api.gsDetail + this.id).then(res => {    
                     if(res.data.status == 0) {
                         this.form = res.data.message;
+
+                        // 为了让分类列表默认正确显示, 把商品category_id的数据类型改为number
+                        this.form.category_id = +this.form.category_id;
+                    }
+                });
+            },
+
+            // 获取商品分类数据
+            getCategory() {
+                this.$http.get(this.$api.ctList + 'goods').then(res => {    
+                    if(res.data.status == 0) {
+                        this.category = res.data.message;
                     }
                 });
             },
@@ -109,6 +136,12 @@
         // 组件初始化完毕后就调用接口渲染表单默认数据
         created() {
             this.getGoods();
+            this.getCategory();
+        },
+        
+        // 把富文本组件注册成子组件使用
+        components: {
+            quillEditor
         }
     }
 </script>
